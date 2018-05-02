@@ -6,4 +6,13 @@
     android:layout_height="match_parent"
     tools:context="com.company.eldhelp.MedicineActivity">
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/medicine_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        android:layout_marginTop="60dp"
+        android:layout_marginBottom="60dp">
+    </android.support.v7.widget.RecyclerView>
+
 </android.support.constraint.ConstraintLayout>
