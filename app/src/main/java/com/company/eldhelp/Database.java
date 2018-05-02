@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
 
 public class Database extends SQLiteOpenHelper {
 
@@ -65,6 +67,7 @@ public class Database extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         //Create Table when oncreate gets called
         sqLiteDatabase.execSQL(SQL_TABLE_USERS);
+        sqLiteDatabase.execSQL(SQL_TABLE_MEDICINE);
 
     }
 
@@ -72,6 +75,8 @@ public class Database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         //drop table to create new one if database version updated
         sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_USERS);
+        sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_MEDICINE);
+
     }
 
     //using this method we can add users to user table
@@ -84,12 +89,69 @@ public class Database extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
 
         //Put username in  @values
-        values.put(KEY_USER_NAME, user.getName());
-
-        values.put(KEY_PASSWORD, user.getPassword());
-
+        values.put(PERSON_NAME, user.getName());
 
         // insert row
         long todo_id = db.insert(TABLE_USERS, null, values);
+    }
+
+    public void addMedicine(Medicine medicine) {
+
+        //get writable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //create content values to insert
+        ContentValues values = new ContentValues();
+
+        //Put medicine in  @values
+        values.put(MEDICINE_NAME, medicine.getName());
+        values.put(MEDICINE_TIME, medicine.getTime());
+
+        // insert row
+        long todo_id = db.insert(TABLE_MEDICINE, null, values);
+    }
+
+    public ArrayList<Medicine> getAllElements() {
+
+        ArrayList<Medicine> list = new ArrayList<Medicine>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_MEDICINE;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            try {
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        Medicine obj = new Medicine();
+                        //only one column
+                        obj.setName(cursor.getString(1));
+                        obj.setTime(cursor.getString(2));
+
+                        //you could add additional columns here..
+
+                        list.add(obj);
+                    } while (cursor.moveToNext());
+                }
+
+            } finally {
+                try {
+                    cursor.close();
+                } catch (Exception ignore) {
+                }
+            }
+
+        } finally {
+            try {
+                db.close();
+            } catch (Exception ignore) {
+            }
+        }
+
+        return list;
     }
 }

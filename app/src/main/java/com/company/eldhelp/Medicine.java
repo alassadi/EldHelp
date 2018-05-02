@@ -9,6 +9,9 @@ public class Medicine {
         this.time = time;
     }
 
+    public Medicine() {
+    }
+
     public String getName() {
         return name;
     }
