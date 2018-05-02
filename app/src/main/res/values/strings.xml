@@ -3,4 +3,5 @@
     <string name="medicineName" />
     <string name="medicineTime" />
     <string name="medicineImage" />
+    <string name="addMedicine">Add Medicine</string>
 </resources>

@@ -13,6 +13,14 @@
         android:scrollbars="vertical"
         android:layout_marginTop="60dp"
         android:layout_marginBottom="60dp">
+
     </android.support.v7.widget.RecyclerView>
+
+    <Button
+        android:id="@+id/button_addMedicine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addMedicine"
+        />
 
 </android.support.constraint.ConstraintLayout>
