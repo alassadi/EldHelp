@@ -59,6 +59,7 @@ public class MedicineActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showInputDialog();
+
             }
         });
     }
@@ -114,7 +115,7 @@ public class MedicineActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
-
+        adapter.notifyDataSetChanged();
         AlertDialog dialog = alertDialog.create();
         dialog.show();
     }
