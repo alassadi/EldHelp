@@ -71,21 +71,21 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         mSmileyGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "That is wonderful!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "That is wonderful!", Toast.LENGTH_SHORT).show();
             }
         });
 
         mSmileyOkay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Please call your doctor!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Please call your doctor!", Toast.LENGTH_SHORT).show();
             }
         });
 
         mSmileyBad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Please call one of your emergency contacts!", Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Please call one of your emergency contacts!", Toast.LENGTH_SHORT).show();
             }
         });
 
