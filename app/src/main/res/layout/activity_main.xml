@@ -6,36 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Hello Ingrid!"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
-        android:layout_width="100dp"
-        android:layout_height="130dp"
+        android:id="@+id/sea"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:layout_marginTop="4dp"
-        android:layout_marginLeft="4dp"
-        android:id="@+id/foto_trip"
-        android:scaleType="center"
-        android:cropToPadding="true"
-        android:background="@color/cardview_light_background"/>
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:srcCompat="@drawable/sea" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Do you want to call a emergency contact?"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/sea" />
 
     <ImageButton
-        android:id="@+id/image_button"
         android:layout_width="wrap_content"
-        android:layout_height="80dp"
-        android:layout_marginStart="5dp"
-        android:src="@drawable/cameraa"
-        app:layout_constraintStart_toEndOf="@id/foto_trip"
-        android:layout_marginLeft="5dp" />
+        android:layout_height="wrap_content"
+        android:id="@+id/call1"
+        android:src="@drawable/phonecall"
+        app:layout_constraintTop_toBottomOf="@+id/sea"
+        />
 
-    <Button
-        android:id="@+id/date_button"
-        android:layout_width="210dp"
-        android:layout_height="80dp"
-        app:layout_constraintStart_toEndOf="@+id/image_button" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/call2"
+        app:layout_constraintTop_toBottomOf="@id/call1"/>
 
-    <View
-        android:layout_width="match_parent"
-        android:id="@+id/linie1"
-        android:layout_height="1dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/darker_gray"
-        app:layout_constraintTop_toBottomOf="@id/foto_trip" />
 </android.support.constraint.ConstraintLayout>
