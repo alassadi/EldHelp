@@ -20,13 +20,15 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".MedicineActivity">
+        <activity android:name=".MedicineActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity"
+                android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
