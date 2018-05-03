@@ -38,17 +38,18 @@
         android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@id/sea" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageView
         android:id="@+id/call1"
+        android:layout_width="85dp"
+        android:layout_height="80dp"
+        app:layout_goneMarginLeft="20dp"
         android:src="@drawable/phonecall"
-        app:layout_constraintTop_toBottomOf="@+id/sea"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/text2" />
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="85dp"
+        android:layout_height="80dp"
+        android:src="@drawable/phonecall"
         android:id="@+id/call2"
         app:layout_constraintTop_toBottomOf="@id/call1"/>
 
