@@ -1,5 +1,7 @@
 package com.company.eldhelp;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -10,10 +12,19 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
     private static final String EXTRA_OPEN_NAVIGATION = "com.company.eldhelp";
     private String mString;
+    private ImageView mSmileyGood;
+    private ImageView mSmileyOkay;
+    private ImageView mSmileyBad;
+    private ImageView mCall1;
+    private ImageView mCall2;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -50,6 +61,53 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mSmileyGood = findViewById(R.id.smiley1);
+        mSmileyOkay = findViewById(R.id.smiley2);
+        mSmileyBad = findViewById(R.id.smiley3);
+        mCall1 = findViewById(R.id.call1);
+        mCall2 = findViewById(R.id.call2);
+
+        mSmileyGood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "That is wonderful!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mSmileyOkay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Please call your doctor!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mSmileyBad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Please call one of your emergency contacts!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mCall1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String number = "1-402-935-2050";                            // random number
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
+                startActivity(i);
+            }
+        });
+
+        mCall2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String number = "2-532-949-3072";                            // random number
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
+                startActivity(i);
+            }
+        });
 
     }
 
