@@ -27,10 +27,6 @@ import java.util.List;
 import android.content.DialogInterface;
 
 public class MedicineActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final String EXTRA_OPEN_NAVIGATION = "com.company.eldhelp";
-    private String mString;
-
     public RecyclerView recyclerView;
     public RecyclerView.Adapter adapter;
     public RecyclerView.LayoutManager layoutManager;
@@ -44,32 +40,12 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
         return R.layout.activty_medicine;
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activty_medicine);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        mString = getIntent().getStringExtra(EXTRA_OPEN_NAVIGATION);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
 
         //Database connection
