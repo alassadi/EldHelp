@@ -40,6 +40,10 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
 
     private List<Medicine> medicines = new ArrayList<>();
 
+    public int getLayoutResource() {
+        return R.layout.activty_medicine;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
