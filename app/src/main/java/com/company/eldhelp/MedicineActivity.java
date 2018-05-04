@@ -32,7 +32,7 @@ public class MedicineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medicine);
+        setContentView(R.layout.activty_medicine);
 
         //Database connection
         addButton = findViewById(R.id.button_addMedicine);
