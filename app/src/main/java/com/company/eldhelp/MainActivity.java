@@ -1,6 +1,7 @@
 package com.company.eldhelp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private ImageView mSmileyGood;
     private ImageView mSmileyOkay;
     private ImageView mSmileyBad;
+    private ImageView mCall1;
+    private ImageView mCall2;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,6 +77,33 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Please call your doctor!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mSmileyBad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Please call an emergency contact!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        mCall1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String number = "1-402-935-2050";                            // random number
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
+                startActivity(i);
+            }
+        });
+
+        mCall2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String number = "2-532-949-3072";                            // random number
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
+                startActivity(i);
             }
         });
 
