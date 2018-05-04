@@ -93,6 +93,7 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
             @Override
             public void onClick(View view) {
                 showInputDialog();
+
             }
         });
     }
@@ -148,7 +149,7 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
                 dialogInterface.dismiss();
             }
         });
-
+        adapter.notifyDataSetChanged();
         AlertDialog dialog = alertDialog.create();
         dialog.show();
     }
