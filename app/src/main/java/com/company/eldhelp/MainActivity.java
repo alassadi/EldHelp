@@ -1,5 +1,6 @@
 package com.company.eldhelp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -80,6 +81,18 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.nav_main){
+            Intent intent1 = new Intent(MainActivity.this, MainActivity.class);
+            MainActivity.this.startActivity(intent1);
+        }
+        else if (id == R.id.nav_reminder){
+            Intent intent1 = new Intent(MainActivity.this,MedicineActivity.class);
+            MainActivity.this.startActivity(intent1);
+        }
+
         return false;
     }
 }
