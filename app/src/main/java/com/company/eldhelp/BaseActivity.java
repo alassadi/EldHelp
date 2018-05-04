@@ -10,18 +10,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
-public abstract class BaseActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
+
+public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String EXTRA_OPEN_NAVIGATION = "com.company.eldhelp";
     android.support.v7.widget.Toolbar toolbar;
     int drawerLayout = 0;
     int navView = 0;
-    int mToolbar= 0;
+    int mToolbar = 0;
     private String mString;
 
 
     @Override
-    protected void onCreate (Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
 
@@ -46,7 +47,6 @@ public abstract class BaseActivity extends AppCompatActivity implements  Navigat
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-
         if (id == R.id.nav_main){
             Intent intent1 = new Intent(BaseActivity.this, MainActivity.class);
             BaseActivity.this.startActivity(intent1);
@@ -58,5 +58,4 @@ public abstract class BaseActivity extends AppCompatActivity implements  Navigat
 
         return false;
     }
-
 }
