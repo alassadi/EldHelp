@@ -7,17 +7,17 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
-public abstract class BaseActivity extends AppCompatActivity implements  NavigationView.OnNavigationItemSelectedListener {
+public abstract class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String EXTRA_OPEN_NAVIGATION = "com.company.eldhelp";
     android.support.v7.widget.Toolbar toolbar;
     int drawerLayout = 0;
     int navView = 0;
-    int mToolbar= 0;
+    int mToolbar = 0;
     private String mString;
 
 
     @Override
-    protected void onCreate (Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResource());
 
@@ -37,7 +37,6 @@ public abstract class BaseActivity extends AppCompatActivity implements  Navigat
 
     }
     protected abstract int getLayoutResource();
-
 
 
 }

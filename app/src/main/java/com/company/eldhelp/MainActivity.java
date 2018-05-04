@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         mSmileyGood = findViewById(R.id.smiley1);
         mSmileyOkay = findViewById(R.id.smiley2);
         mSmileyBad = findViewById(R.id.smiley3);
+        mCall1 = findViewById(R.id.call1);
+        mCall2 = findViewById(R.id.call2);
 
         mSmileyGood.setOnClickListener(new View.OnClickListener() {
             @Override
