@@ -86,7 +86,15 @@ public class MedicineActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(MedicineActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        medicineTime.setText(selectedHour + ":" + selectedMinute);
+                        if (selectedHour < 10 && selectedMinute < 10) {
+                            medicineTime.setText("0" + selectedHour + ":" + "0" + selectedMinute);
+                        } else if (selectedHour < 10) {
+                            medicineTime.setText("0" + selectedHour + ":" + selectedMinute);
+                        } else if (selectedMinute < 10) {
+                            medicineTime.setText(selectedHour + ":" + "0" + selectedMinute);
+                        } else {
+                            medicineTime.setText(selectedHour + ":" + selectedMinute);
+                        }
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
