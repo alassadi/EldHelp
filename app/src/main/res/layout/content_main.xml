@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.company.eldhelp.MainActivity"
+    tools:showIn="@layout/app_bar_main">
+
+    <TextView
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Hello Ingrid!"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/seaimage"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:layout_constraintTop_toBottomOf="@+id/text1"
+        app:srcCompat="@drawable/sea" />
+
+    <TextView
+        android:id="@+id/text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="How are you today?"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/seaimage" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/leer1"
+        app:layout_constraintTop_toBottomOf="@id/text2"/>
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/smiley1"
+        android:layout_marginLeft="83dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/text2"
+        app:layout_constraintStart_toEndOf="@id/leer1"
+        android:src="@drawable/smileygood"/>
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/smiley2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/text2"
+        app:layout_constraintStart_toEndOf="@id/smiley1"
+        android:src="@drawable/smileyokay"/>
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/smiley3"
+        app:layout_constraintTop_toBottomOf="@id/text2"
+        app:layout_constraintStart_toEndOf="@id/smiley2"
+        android:src="@drawable/smileybad" />
+
+    <View
+        android:layout_width="match_parent"
+        android:id="@+id/linie"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintTop_toBottomOf="@id/smiley2" />
+
+    <TextView
+        android:id="@+id/text3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Do you want to call an emergency contact?"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/linie" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/leer"
+        app:layout_constraintTop_toBottomOf="@id/text3"/>
+
+    <ImageView
+        android:id="@+id/call1"
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="70dp"
+        android:src="@drawable/phonecall"
+        app:layout_constraintTop_toBottomOf="@+id/text3"
+        app:layout_constraintStart_toEndOf="@id/leer"/>
+
+    <TextView
+        android:id="@+id/contact1"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="Anne"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/call1"
+        app:layout_constraintStart_toStartOf="@id/call1"/>
+
+
+    <ImageView
+        android:layout_width="75dp"
+        android:layout_height="70dp"
+        android:src="@drawable/phonecall"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="100dp"
+        android:id="@+id/call2"
+        app:layout_constraintTop_toBottomOf="@id/text3"
+        app:layout_constraintStart_toEndOf="@id/call1"/>
+
+    <TextView
+        android:id="@+id/contact2"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:text="Paul"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="#000000"
+        android:textSize="30sp"
+        app:layout_constraintTop_toBottomOf="@+id/call2"
+        app:layout_constraintStart_toStartOf="@id/call2"/>
+
+</android.support.constraint.ConstraintLayout>

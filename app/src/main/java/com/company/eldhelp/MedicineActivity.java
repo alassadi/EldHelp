@@ -1,23 +1,20 @@
 package com.company.eldhelp;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
-import android.provider.AlarmClock;
-import android.support.v4.app.NotificationCompat;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -29,8 +26,10 @@ import java.util.Calendar;
 import java.util.List;
 import android.content.DialogInterface;
 
-public class MedicineActivity extends AppCompatActivity {
+public class MedicineActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String EXTRA_OPEN_NAVIGATION = "com.company.eldhelp";
+    private String mString;
 
     public RecyclerView recyclerView;
     public RecyclerView.Adapter adapter;
@@ -38,12 +37,40 @@ public class MedicineActivity extends AppCompatActivity {
     Database sqliteHelper;
     Button addButton;
 
+
     private List<Medicine> medicines = new ArrayList<>();
+
+    public int getLayoutResource() {
+        return R.layout.activty_medicine;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medicine);
+        setContentView(R.layout.activty_medicine);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mString = getIntent().getStringExtra(EXTRA_OPEN_NAVIGATION);
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
 
         //Database connection
         addButton = findViewById(R.id.button_addMedicine);
@@ -95,6 +122,7 @@ public class MedicineActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 showInputDialog();
+
             }
         });
     }
@@ -121,7 +149,15 @@ public class MedicineActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(MedicineActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        medicineTime.setText(selectedHour + ":" + selectedMinute);
+                        if (selectedHour < 10 && selectedMinute < 10) {
+                            medicineTime.setText("0" + selectedHour + ":" + "0" + selectedMinute);
+                        } else if (selectedHour < 10) {
+                            medicineTime.setText("0" + selectedHour + ":" + selectedMinute);
+                        } else if (selectedMinute < 10) {
+                            medicineTime.setText(selectedHour + ":" + "0" + selectedMinute);
+                        } else {
+                            medicineTime.setText(selectedHour + ":" + selectedMinute);
+                        }
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
@@ -150,7 +186,7 @@ public class MedicineActivity extends AppCompatActivity {
                 dialogInterface.dismiss();
             }
         });
-
+        adapter.notifyDataSetChanged();
         AlertDialog dialog = alertDialog.create();
         dialog.show();
     }
@@ -198,6 +234,22 @@ public class MedicineActivity extends AppCompatActivity {
         }
 
         notificationManager.notify(1, builder.build());
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.nav_main) {
+            Intent intent1 = new Intent(MedicineActivity.this, MainActivity.class);
+            MedicineActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_reminder) {
+            Intent intent1 = new Intent(MedicineActivity.this, MedicineActivity.class);
+            MedicineActivity.this.startActivity(intent1);
+        }
+
+        return false;
     }
 
 
