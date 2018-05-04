@@ -124,7 +124,15 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
                 mTimePicker = new TimePickerDialog(MedicineActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        medicineTime.setText(selectedHour + ":" + selectedMinute);
+                        if (selectedHour < 10 && selectedMinute < 10) {
+                            medicineTime.setText("0" + selectedHour + ":" + "0" + selectedMinute);
+                        } else if (selectedHour < 10) {
+                            medicineTime.setText("0" + selectedHour + ":" + selectedMinute);
+                        } else if (selectedMinute < 10) {
+                            medicineTime.setText(selectedHour + ":" + "0" + selectedMinute);
+                        } else {
+                            medicineTime.setText(selectedHour + ":" + selectedMinute);
+                        }
                     }
                 }, hour, minute, true);
                 mTimePicker.setTitle("Select Time");
@@ -163,12 +171,11 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_main){
+        if (id == R.id.nav_main) {
             Intent intent1 = new Intent(MedicineActivity.this, MainActivity.class);
             MedicineActivity.this.startActivity(intent1);
-        }
-        else if (id == R.id.nav_reminder){
-            Intent intent1 = new Intent(MedicineActivity.this,MedicineActivity.class);
+        } else if (id == R.id.nav_reminder) {
+            Intent intent1 = new Intent(MedicineActivity.this, MedicineActivity.class);
             MedicineActivity.this.startActivity(intent1);
         }
 

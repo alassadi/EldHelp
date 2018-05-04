@@ -84,12 +84,11 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_main){
+        if (id == R.id.nav_main) {
             Intent intent1 = new Intent(MainActivity.this, MainActivity.class);
             MainActivity.this.startActivity(intent1);
-        }
-        else if (id == R.id.nav_reminder){
-            Intent intent1 = new Intent(MainActivity.this,MedicineActivity.class);
+        } else if (id == R.id.nav_reminder) {
+            Intent intent1 = new Intent(MainActivity.this, MedicineActivity.class);
             MainActivity.this.startActivity(intent1);
         }
 
