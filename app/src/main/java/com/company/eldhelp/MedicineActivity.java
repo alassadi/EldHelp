@@ -26,7 +26,7 @@ import java.util.Calendar;
 import java.util.List;
 import android.content.DialogInterface;
 
-public class MedicineActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MedicineActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String EXTRA_OPEN_NAVIGATION = "com.company.eldhelp";
     private String mString;
