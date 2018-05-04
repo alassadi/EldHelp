@@ -167,12 +167,11 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
 
         int id = item.getItemId();
 
-        if (id == R.id.nav_main){
+        if (id == R.id.nav_main) {
             Intent intent1 = new Intent(MedicineActivity.this, MainActivity.class);
             MedicineActivity.this.startActivity(intent1);
-        }
-        else if (id == R.id.nav_reminder){
-            Intent intent1 = new Intent(MedicineActivity.this,MedicineActivity.class);
+        } else if (id == R.id.nav_reminder) {
+            Intent intent1 = new Intent(MedicineActivity.this, MedicineActivity.class);
             MedicineActivity.this.startActivity(intent1);
         }
 
