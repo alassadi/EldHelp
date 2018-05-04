@@ -59,12 +59,37 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
         layoutManager = new LinearLayoutManager(MedicineActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 
+        //create alarm
+
+
+        for (int i=0; i<medicines.size(); i++){
+            String title=medicines.get(i).getName();
+            String time=String.valueOf(medicines.get(i).getTime());
+
+            String our1= String.valueOf(time.charAt(0));
+            String our2=String.valueOf(time.charAt(1));
+
+            String min1=String.valueOf(time.charAt(3));
+            String min2=String.valueOf(time.charAt(4));
+
+            String our=our1+our2;
+            String min=min1+min2;
+
+            createAlarm(title,Integer.parseInt(our),Integer.parseInt(min),true,true);
+
+        }
+
+
+
+
         adapter = new MedicineViewAdapter(this, medicines, new MedicineOnClickListener() {
             @Override
             public void onClick(View v, int position) {
 
                 //on click lister for recylerView
                 Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
+                //showNotification("FATIH","DENEME");
+
             }
         });
         recyclerView.setAdapter(adapter);
@@ -142,6 +167,51 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
         dialog.show();
     }
 
+    //create alarm
+    public void createAlarm(String message, int hour, int minutes, boolean vibrate, boolean skipui){
+
+        Intent intent=new Intent(AlarmClock.ACTION_SET_ALARM);
+        intent.putExtra(AlarmClock.EXTRA_MESSAGE, message);
+        intent.putExtra(AlarmClock.EXTRA_HOUR,hour);
+        intent.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+        //intent.putExtra(AlarmClock.EXTRA_DAYS,days);
+        intent.putExtra(AlarmClock.EXTRA_VIBRATE,vibrate);
+        intent.putExtra(AlarmClock.EXTRA_SKIP_UI, skipui);
+
+        startActivity(intent);
+    }
+
+    //create notification
+    void showNotification(String title, String content) {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "default");
+                builder.setSmallIcon(R.mipmap.ic_launcher); // notification icon
+                builder.setContentTitle(title); // title for notification
+                builder.setContentText(content);// message for notification
+                builder.setPriority(Notification.PRIORITY_MAX);
+                builder.setDefaults(Notification.DEFAULT_ALL);//
+                //.setSound(mysound) // set alarm sound for notification
+                //.setAutoCancel(false); // clear notification after click
+
+        Intent intent = new Intent(getApplicationContext(), MedicineActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        //set time to notification
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("default",
+                    "YOUR_CHANNEL_NAME",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DISCRIPTION");
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationManager.notify(1, builder.build());
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -157,4 +227,6 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
 
         return false;
     }
+
+
 }
