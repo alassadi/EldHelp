@@ -47,9 +47,6 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
         return R.layout.activty_medicine;
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,21 +70,18 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
             String title=medicines.get(i).getName();
             String time=String.valueOf(medicines.get(i).getTime());
 
-            String our1= String.valueOf(time.charAt(0));
-            String our2=String.valueOf(time.charAt(1));
+            String hour1= String.valueOf(time.charAt(0));
+            String hour2=String.valueOf(time.charAt(1));
 
             String min1=String.valueOf(time.charAt(3));
             String min2=String.valueOf(time.charAt(4));
 
-            String our=our1+our2;
+            String our=hour1+hour2;
             String min=min1+min2;
 
             createAlarm(title,Integer.parseInt(our),Integer.parseInt(min),true,true);
 
         }
-
-
-
 
         adapter = new MedicineViewAdapter(this, medicines, new MedicineOnClickListener() {
             @Override
@@ -229,6 +223,9 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
             MedicineActivity.this.startActivity(intent1);
         } else if (id == R.id.nav_reminder) {
             Intent intent1 = new Intent(MedicineActivity.this, MedicineActivity.class);
+            MedicineActivity.this.startActivity(intent1);
+        }  else if (id == R.id.nav_event) {
+            Intent intent1 = new Intent(MedicineActivity.this, EventActivity.class);
             MedicineActivity.this.startActivity(intent1);
         }
 
