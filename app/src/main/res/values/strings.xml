@@ -13,9 +13,9 @@
     <string name="date">Date</string>
     <string name="time">Time</string>
     <string name="event_name">Event Name:</string>
-    <string name="medicine">Medicine</string>
+    <string name="medicine">Medicines</string>
     <string name="main">Main</string>
-    <string name="event">event</string>
+    <string name="event">Events</string>
     <string name="add_event">Add Event</string>
     <string name="eventName" />
     <string name="eventTime" />
