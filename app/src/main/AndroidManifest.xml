@@ -3,6 +3,7 @@
     package="com.company.eldhelp">
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,7 +30,7 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
+        <activity android:name=".EventActivity"></activity>
     </application>
 
 </manifest>
