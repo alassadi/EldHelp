@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_medicine"
+    tools:showIn="@layout/app_bar_event"
     tools:context="com.company.eldhelp.EventActivity">
 
     <android.support.v7.widget.RecyclerView

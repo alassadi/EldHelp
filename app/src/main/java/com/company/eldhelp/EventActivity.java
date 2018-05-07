@@ -3,11 +3,16 @@ package com.company.eldhelp;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -15,12 +20,14 @@ import android.widget.EditText;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.company.eldhelp.Interface.MedicineOnClickListener;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class EventActivity extends AppCompatActivity {
+public class EventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public RecyclerView recyclerView;
     public RecyclerView.Adapter adapter;
@@ -40,6 +47,7 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
+
         inflater = getLayoutInflater();
         alertLayout = inflater.inflate(R.layout.layout_custom_dialog2, null);
         myCalendar = Calendar.getInstance();
@@ -47,10 +55,37 @@ public class EventActivity extends AppCompatActivity {
         eventTime = alertLayout.findViewById(R.id.event_time);
         eventDate =  alertLayout.findViewById(R.id.event_date);
 
+        addButton = findViewById(R.id.button_addEvent);
 
         //Database connection
         sqliteHelper = new Database(this);
         ArrayList<Event> events = sqliteHelper.getAllEvents();
+
+        //recyclerView
+        recyclerView = findViewById(R.id.event_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(EventActivity.this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        adapter = new EventViewAdapter(this, events, new MedicineOnClickListener() {
+            @Override
+            public void onClick(View v, int position) {
+
+                //on click lister for recylerView
+                Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
+                //showNotification("FATIH","DENEME");
+
+            }
+        });
+        recyclerView.setAdapter(adapter);
+
+        addButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEventDialog();
+
+            }
+        });
     }
 
     private void updateLabel() {
@@ -59,7 +94,7 @@ public class EventActivity extends AppCompatActivity {
 
         eventDate.setText(sdf.format(myCalendar.getTime()));
     }
-    private void showInputDialog() {
+    private void showEventDialog() {
 
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
@@ -148,5 +183,19 @@ public class EventActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         AlertDialog dialog = alertDialog.create();
         dialog.show();
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_main) {
+            Intent intent1 = new Intent(EventActivity.this, MainActivity.class);
+            EventActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_reminder) {
+            Intent intent1 = new Intent(EventActivity.this, MedicineActivity.class);
+            EventActivity.this.startActivity(intent1);
+        }
+        return false;
     }
 }

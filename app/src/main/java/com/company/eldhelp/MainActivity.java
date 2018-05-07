@@ -127,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         Intent intent1 = new Intent(MainActivity.this, EventActivity.class);
         MainActivity.this.startActivity(intent1);
     }
+
         return false;
     }
 }
