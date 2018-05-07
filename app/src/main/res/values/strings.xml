@@ -17,4 +17,7 @@
     <string name="main">Main</string>
     <string name="event">event</string>
     <string name="add_event">Add Event</string>
+    <string name="eventName" />
+    <string name="eventTime" />
+    <string name="eventDate" />
 </resources>
