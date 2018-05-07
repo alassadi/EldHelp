@@ -1,9 +1,16 @@
 package com.company.eldhelp;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.provider.AlarmClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AlertDialog;
@@ -26,11 +33,7 @@ import java.util.Calendar;
 import java.util.List;
 import android.content.DialogInterface;
 
-public class MedicineActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-
-    private static final String EXTRA_OPEN_NAVIGATION = "com.company.eldhelp";
-    private String mString;
-
+public class MedicineActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     public RecyclerView recyclerView;
     public RecyclerView.Adapter adapter;
     public RecyclerView.LayoutManager layoutManager;
@@ -45,31 +48,8 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activty_medicine);
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        mString = getIntent().getStringExtra(EXTRA_OPEN_NAVIGATION);
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
 
 
         //Database connection
@@ -83,12 +63,34 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
         layoutManager = new LinearLayoutManager(MedicineActivity.this);
         recyclerView.setLayoutManager(layoutManager);
 
+        //create alarm
+
+
+        for (int i=0; i<medicines.size(); i++){
+            String title=medicines.get(i).getName();
+            String time=String.valueOf(medicines.get(i).getTime());
+
+            String hour1= String.valueOf(time.charAt(0));
+            String hour2=String.valueOf(time.charAt(1));
+
+            String min1=String.valueOf(time.charAt(3));
+            String min2=String.valueOf(time.charAt(4));
+
+            String our=hour1+hour2;
+            String min=min1+min2;
+
+            createAlarm(title,Integer.parseInt(our),Integer.parseInt(min),true,true);
+
+        }
+
         adapter = new MedicineViewAdapter(this, medicines, new MedicineOnClickListener() {
             @Override
             public void onClick(View v, int position) {
 
                 //on click lister for recylerView
                 Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
+                //showNotification("FATIH","DENEME");
+
             }
         });
         recyclerView.setAdapter(adapter);
@@ -166,6 +168,51 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
         dialog.show();
     }
 
+    //create alarm
+    public void createAlarm(String message, int hour, int minutes, boolean vibrate, boolean skipui){
+
+        Intent intent=new Intent(AlarmClock.ACTION_SET_ALARM);
+        intent.putExtra(AlarmClock.EXTRA_MESSAGE, message);
+        intent.putExtra(AlarmClock.EXTRA_HOUR,hour);
+        intent.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+        //intent.putExtra(AlarmClock.EXTRA_DAYS,days);
+        intent.putExtra(AlarmClock.EXTRA_VIBRATE,vibrate);
+        intent.putExtra(AlarmClock.EXTRA_SKIP_UI, skipui);
+
+        startActivity(intent);
+    }
+
+    //create notification
+    void showNotification(String title, String content) {
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "default");
+                builder.setSmallIcon(R.mipmap.ic_launcher); // notification icon
+                builder.setContentTitle(title); // title for notification
+                builder.setContentText(content);// message for notification
+                builder.setPriority(Notification.PRIORITY_MAX);
+                builder.setDefaults(Notification.DEFAULT_ALL);//
+                //.setSound(mysound) // set alarm sound for notification
+                //.setAutoCancel(false); // clear notification after click
+
+        Intent intent = new Intent(getApplicationContext(), MedicineActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
+
+        //set time to notification
+
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("default",
+                    "YOUR_CHANNEL_NAME",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("YOUR_NOTIFICATION_CHANNEL_DISCRIPTION");
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        notificationManager.notify(1, builder.build());
+    }
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -176,6 +223,9 @@ public class MedicineActivity extends AppCompatActivity implements NavigationVie
             MedicineActivity.this.startActivity(intent1);
         } else if (id == R.id.nav_reminder) {
             Intent intent1 = new Intent(MedicineActivity.this, MedicineActivity.class);
+            MedicineActivity.this.startActivity(intent1);
+        }  else if (id == R.id.nav_event) {
+            Intent intent1 = new Intent(MedicineActivity.this, EventActivity.class);
             MedicineActivity.this.startActivity(intent1);
         }
 
