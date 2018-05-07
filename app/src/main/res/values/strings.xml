@@ -16,8 +16,12 @@
     <string name="medicine">Medicines</string>
     <string name="main">Main</string>
     <string name="event">Events</string>
+    <string name="contact">Contacts</string>
     <string name="add_event">Add Event</string>
     <string name="eventName" />
     <string name="eventTime" />
     <string name="eventDate" />
+    <string name="add_contact">Add Contact</string>
+    <string name="contactName"/>
+    <string name="contactNumber"/>
 </resources>
