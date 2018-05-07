@@ -122,6 +122,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         } else if (id == R.id.nav_reminder) {
             Intent intent1 = new Intent(MainActivity.this, MedicineActivity.class);
             MainActivity.this.startActivity(intent1);
+        }else if (id== R.id.nav_event){
+            Intent intent1 = new Intent(MainActivity.this, EventActivity.class);
+            MainActivity.this.startActivity(intent1);
         }
 
         return false;
