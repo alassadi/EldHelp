@@ -83,9 +83,6 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
 
         }
 
-
-
-
         adapter = new MedicineViewAdapter(this, medicines, new MedicineOnClickListener() {
             @Override
             public void onClick(View v, int position) {

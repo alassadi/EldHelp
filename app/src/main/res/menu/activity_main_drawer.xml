@@ -7,15 +7,15 @@
         <item
             android:id="@+id/nav_main"
             android:icon="@drawable/logo"
-            android:title="Main" />
+            android:title="@string/main" />
         <item
             android:id="@+id/nav_reminder"
             android:icon="@drawable/reminder"
-            android:title="Medicine" />
+            android:title="@string/medicine" />
         <item
             android:id="@+id/nav_event"
-            android:icon="@drawable/logo"
-            android:title="Event"/>
+            android:icon="@drawable/reminder"
+            android:title="@string/event" />
 
     </group>
 

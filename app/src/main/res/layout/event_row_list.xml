@@ -15,7 +15,7 @@
         android:id="@+id/event_row"
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        tools:context="com.company.eldhelp.MedicineActivity">
+        tools:context="com.company.eldhelp.EventActivity">
 
         <ImageView
             android:id="@+id/imageViewEvent"
@@ -39,7 +39,7 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/textView_event_name_time"
+            android:id="@+id/textView_event_time"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

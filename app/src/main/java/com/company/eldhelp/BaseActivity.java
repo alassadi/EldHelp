@@ -54,6 +54,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Navigati
         else if (id == R.id.nav_reminder){
             Intent intent1 = new Intent(BaseActivity.this,MedicineActivity.class);
             BaseActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_event){
+            Intent intent1 = new Intent(BaseActivity.this,EventActivity.class);
+            BaseActivity.this.startActivity(intent1);
         }
 
         return false;

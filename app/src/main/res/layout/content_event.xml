@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_medicine"
+    tools:showIn="@layout/app_bar_event"
     tools:context="com.company.eldhelp.EventActivity">
 
     <android.support.v7.widget.RecyclerView
@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:text="@string/addMedicine"
+        android:text="@string/add_event"
         android:textSize="30sp" />
 
 </RelativeLayout>

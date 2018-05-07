@@ -66,7 +66,7 @@ public class EventViewAdapter extends RecyclerView.Adapter<EventViewAdapter.View
             super(itemView);
 
             eventName = itemView.findViewById(R.id.textView_event_name);
-            eventTime = itemView.findViewById(R.id.textView_medicine_time);
+            eventTime = itemView.findViewById(R.id.textView_event_time);
             eventDate = itemView.findViewById(R.id.textView_event_name_date);
             event_row= itemView.findViewById(R.id.event_row);
 
