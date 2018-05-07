@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class EventActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class EventActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     public RecyclerView recyclerView;
     public RecyclerView.Adapter adapter;
@@ -42,10 +42,13 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
     EditText eventDate ;
     Calendar myCalendar ;
 
+    public int getLayoutResource() {
+        return R.layout.activity_event;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event);
+
 
 
         inflater = getLayoutInflater();
@@ -194,6 +197,9 @@ public class EventActivity extends AppCompatActivity implements NavigationView.O
             EventActivity.this.startActivity(intent1);
         } else if (id == R.id.nav_reminder) {
             Intent intent1 = new Intent(EventActivity.this, MedicineActivity.class);
+            EventActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_event) {
+            Intent intent1 = new Intent(EventActivity.this, EventActivity.class);
             EventActivity.this.startActivity(intent1);
         }
         return false;
