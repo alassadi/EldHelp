@@ -168,7 +168,7 @@ public class Database extends SQLiteOpenHelper {
         //create content values to insert
         ContentValues values = new ContentValues();
 
-        //Put medicine in  @values
+        //Put event in  @values
         values.put(EVENT_NAME, event.getName());
         values.put(EVENT_TIME, event.getTime());
         values.put(EVENT_DATE, event.getDate());
@@ -185,9 +185,12 @@ public class Database extends SQLiteOpenHelper {
         //create content values to insert
         ContentValues values = new ContentValues();
 
-        //Put medicine in @values
+        //Put contact in @values
         values.put(CONTACT_NAME, contact.getName());
         values.put(CONTACT_NUMBER, contact.getNumber());
+
+        // insert row
+        long todo_id = db.insert(TABLE_CONTACT, null, values);
     }
 
     public ArrayList<Medicine> getAllElements() {

@@ -49,8 +49,6 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
         inflater = getLayoutInflater();
         alertLayout = inflater.inflate(R.layout.layout_custom_dialog2, null);
         myCalendar = Calendar.getInstance();
@@ -200,6 +198,9 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
             EventActivity.this.startActivity(intent1);
         } else if (id == R.id.nav_event) {
             Intent intent1 = new Intent(EventActivity.this, EventActivity.class);
+            EventActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_contact){
+            Intent intent1 = new Intent(EventActivity.this, ContactActivity.class);
             EventActivity.this.startActivity(intent1);
         }
         return false;
