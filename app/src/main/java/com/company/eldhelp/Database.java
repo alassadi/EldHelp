@@ -68,7 +68,7 @@ public class Database extends SQLiteOpenHelper {
     public static final String CONTACT_NAME = "name";
 
     //COLUMN contact number
-    public static final String CONTACT_NUMBER = "number";
+    public static final String CONTACT_NUMBER = "contactnumber";
 
 
 
@@ -98,11 +98,11 @@ public class Database extends SQLiteOpenHelper {
 
     //SQL for creating contacts table
     public static final String SQL_TABLE_CONTACT = " CREATE TABLE " + TABLE_CONTACT
-            + "("
+            + " ( "
             + CONTACT_ID +  " INTEGER PRIMARY KEY, "
-            + CONTACT_NAME + "TEXT,"
-            + CONTACT_NUMBER + "TEXT"
-            + ")";
+            + CONTACT_NAME + " TEXT, "
+            + CONTACT_NUMBER + " TEXT"
+            + " ) ";
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

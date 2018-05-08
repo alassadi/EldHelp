@@ -87,13 +87,13 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showEventDialog();
+                showContacts();
             }
         });
     }
 
 
-    private void showEventDialog() {
+    private void showContacts() {
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContactActivity.this);
         alertDialog.setCancelable(false);

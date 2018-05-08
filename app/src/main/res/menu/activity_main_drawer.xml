@@ -10,14 +10,12 @@
             android:title="@string/main" />
         <item
             android:id="@+id/nav_reminder"
-            android:icon="@drawable/reminder"
+            android:icon="@drawable/ic_local_pharmacy_black_24dp"
             android:title="@string/medicine" />
         <item
             android:id="@+id/nav_event"
-            android:icon="@drawable/reminder"
+            android:icon="@drawable/ic_event_available_black_24dp"
             android:title="@string/event" />
-            android:icon="@drawable/ic_local_pharmacy_black_24dp"
-            android:title="@string/medicine" />
         <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/navcontacts"
