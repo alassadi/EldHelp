@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.provider.AlarmClock;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AlertDialog;
@@ -69,6 +70,9 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(EventActivity.this);
         recyclerView.setLayoutManager(layoutManager);
+
+        //create alarm
+
 
         adapter = new EventViewAdapter(this, events, new MedicineOnClickListener() {
             @Override
@@ -203,5 +207,18 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
             EventActivity.this.startActivity(intent1);
         }
         return false;
+    }
+    //create alarm
+    public void createAlarm(String message, int hour,int minutes, boolean vibrate, boolean skipui){
+
+        Intent intent=new Intent(AlarmClock.ACTION_SET_ALARM);
+        intent.putExtra(AlarmClock.EXTRA_MESSAGE, message);
+        intent.putExtra(AlarmClock.EXTRA_HOUR,hour);
+        intent.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
+        //intent.putExtra(AlarmClock.EXTRA_DAYS,days);
+        intent.putExtra(AlarmClock.EXTRA_VIBRATE,vibrate);
+        intent.putExtra(AlarmClock.EXTRA_SKIP_UI, skipui);
+
+        startActivity(intent);
     }
 }
