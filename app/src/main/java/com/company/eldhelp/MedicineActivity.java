@@ -224,6 +224,9 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
         } else if (id == R.id.nav_reminder) {
             Intent intent1 = new Intent(MedicineActivity.this, MedicineActivity.class);
             MedicineActivity.this.startActivity(intent1);
+        }  else if (id == R.id.nav_event) {
+            Intent intent1 = new Intent(MedicineActivity.this, EventActivity.class);
+            MedicineActivity.this.startActivity(intent1);
         }
 
         return false;

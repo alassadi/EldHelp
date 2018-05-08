@@ -20,6 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+
         <activity
             android:name=".MedicineActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -27,10 +30,21 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".EventActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+
+
         <activity android:name=".MainActivity"></activity>
+
+        <activity
+            android:name=".ContactActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+
     </application>
 
 </manifest>
