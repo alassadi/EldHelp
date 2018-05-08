@@ -1,8 +1,8 @@
 package com.company.eldhelp;
 
 public class Contact {
-    private String name;
-    private String number;
+     String name;
+     String number;
 
     public Contact(String name, String number) {
         this.name = name;
