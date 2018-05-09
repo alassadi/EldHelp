@@ -23,6 +23,12 @@ public class Database extends SQLiteOpenHelper {
     //TABLE NAME
     public static final String TABLE_MEDICINE = "medicines";
 
+    //TABLE NAME
+    public static final String TABLE_EVENT = "events";
+
+    //TABLE NAME
+    public static final String TABLE_CONTACT = "contacts";
+
     //TABLE USERS COLUMNS
     //ID COLUMN @primaryKey
     public static final String PERSON_ID = "id";
@@ -41,6 +47,29 @@ public class Database extends SQLiteOpenHelper {
     //COLUMN time
     public static final String MEDICINE_TIME = "time";
 
+    //TABLE EVENT COLUMNS
+    //ID COLUMN @primaryKey
+    public static final String EVENT_ID = "id";
+
+    //COLUMN event name
+    public static final String EVENT_NAME = "event";
+
+    //COLUMN time
+    public static final String EVENT_TIME = "time";
+
+    //COLUMN date
+    public static final String EVENT_DATE = "date";
+
+    //TABLE CONTACT COLUMNS
+    //ID COLUMN @primaryKey
+    public static final String CONTACT_ID = "id";
+
+    //COLUMN contact name
+    public static final String CONTACT_NAME = "name";
+
+    //COLUMN contact number
+    public static final String CONTACT_NUMBER = "contactnumber";
+
 
 
     //SQL for creating users table
@@ -58,6 +87,22 @@ public class Database extends SQLiteOpenHelper {
             + MEDICINE_TIME + " TEXT"
             + " ) ";
 
+    //SQL for creating events table
+    public static final String SQL_TABLE_EVENT = " CREATE TABLE " + TABLE_EVENT
+            + " ( "
+            + EVENT_ID + " INTEGER PRIMARY KEY, "
+            + EVENT_NAME + " TEXT, "
+            + EVENT_TIME + " TEXT, "
+            + EVENT_DATE + " TEXT"
+            + " ) ";
+
+    //SQL for creating contacts table
+    public static final String SQL_TABLE_CONTACT = " CREATE TABLE " + TABLE_CONTACT
+            + " ( "
+            + CONTACT_ID +  " INTEGER PRIMARY KEY, "
+            + CONTACT_NAME + " TEXT, "
+            + CONTACT_NUMBER + " TEXT"
+            + " ) ";
 
     public Database(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -68,6 +113,8 @@ public class Database extends SQLiteOpenHelper {
         //Create Table when oncreate gets called
         sqLiteDatabase.execSQL(SQL_TABLE_USERS);
         sqLiteDatabase.execSQL(SQL_TABLE_MEDICINE);
+        sqLiteDatabase.execSQL(SQL_TABLE_EVENT);
+        sqLiteDatabase.execSQL(SQL_TABLE_CONTACT);
 
     }
 
@@ -76,6 +123,8 @@ public class Database extends SQLiteOpenHelper {
         //drop table to create new one if database version updated
         sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_USERS);
         sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_MEDICINE);
+        sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_EVENT);
+        sqLiteDatabase.execSQL(" DROP TABLE IF EXISTS " + TABLE_CONTACT);
 
     }
 
@@ -109,6 +158,39 @@ public class Database extends SQLiteOpenHelper {
 
         // insert row
         long todo_id = db.insert(TABLE_MEDICINE, null, values);
+    }
+
+    public void addEvent (Event event) {
+
+        //get writable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //create content values to insert
+        ContentValues values = new ContentValues();
+
+        //Put event in  @values
+        values.put(EVENT_NAME, event.getName());
+        values.put(EVENT_TIME, event.getTime());
+        values.put(EVENT_DATE, event.getDate());
+
+        // insert row
+        long todo_id = db.insert(TABLE_EVENT, null, values);
+    }
+
+    public void addContact (Contact contact){
+
+        //get writeable database
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //create content values to insert
+        ContentValues values = new ContentValues();
+
+        //Put contact in @values
+        values.put(CONTACT_NAME, contact.getName());
+        values.put(CONTACT_NUMBER, contact.getNumber());
+
+        // insert row
+        long todo_id = db.insert(TABLE_CONTACT, null, values);
     }
 
     public ArrayList<Medicine> getAllElements() {
@@ -154,4 +236,89 @@ public class Database extends SQLiteOpenHelper {
 
         return list;
     }
+
+    public ArrayList<Event> getAllEvents() {
+        ArrayList<Event> list = new ArrayList<Event>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_EVENT;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            try {
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        Event obj = new Event();
+                        //only one column
+                        obj.setName(cursor.getString(1));
+                        obj.setTime(cursor.getString(2));
+                        obj.setDate(cursor.getString(3));
+
+                        list.add(obj);
+                    } while (cursor.moveToNext());
+                }
+
+            } finally {
+                try {
+                    cursor.close();
+                } catch (Exception ignore) {
+                }
+            }
+
+        } finally {
+            try {
+                db.close();
+            } catch (Exception ignore) {
+            }
+        }
+
+        return list;
+    }
+
+    public ArrayList<Contact> getAllContacts() {
+        ArrayList<Contact> list = new ArrayList<Contact>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTACT;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        try {
+
+            Cursor cursor = db.rawQuery(selectQuery, null);
+            try {
+
+                // looping through all rows and adding to list
+                if (cursor.moveToFirst()) {
+                    do {
+                        Contact obj = new Contact();
+                        //only one column
+                        obj.setName(cursor.getString(1));
+                        obj.setNumber(cursor.getString(2));
+
+                        list.add(obj);
+                    } while (cursor.moveToNext());
+                }
+
+            } finally {
+                try {
+                    cursor.close();
+                } catch (Exception ignore) {
+                }
+            }
+
+        } finally {
+            try {
+                db.close();
+            } catch (Exception ignore) {
+            }
+        }
+
+        return list;
+    }
+
+
 }
