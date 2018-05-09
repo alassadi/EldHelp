@@ -9,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.AlarmClock;
 import android.support.annotation.NonNull;
@@ -63,7 +64,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
         //Database connection
         addButton = findViewById(R.id.button_addContact);
         sqliteHelper = new Database(this);
-        ArrayList<Contact> contacts = sqliteHelper.getAllContacts();
+        final ArrayList<Contact> contacts = sqliteHelper.getAllContacts();
 
         //recyclerView
         recyclerView = findViewById(R.id.contact_recycler_view);
@@ -77,8 +78,13 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
             public void onClick(View v, int position) {
 
                 //on click lister for recylerView
-                Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
                 //showNotification("FATIH","DENEME");
+
+
+                String number = contacts.get(position).getNumber();                            // random number
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
+                startActivity(i);
 
             }
         });
