@@ -1,16 +1,25 @@
 package com.company.eldhelp;
 
+import android.Manifest;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,17 +43,18 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
     public RecyclerView.LayoutManager layoutManager;
     Database sqliteHelper;
     Button addButton;
-    LayoutInflater inflater ;
-    View alertLayout ;
+    LayoutInflater inflater;
+    View alertLayout;
 
-    EditText eventName ;
-    EditText eventTime ;
-    EditText eventDate ;
-    Calendar myCalendar ;
+    EditText eventName;
+    EditText eventTime;
+    EditText eventDate;
+    Calendar myCalendar;
 
     public int getLayoutResource() {
         return R.layout.activity_event;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +64,7 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
         myCalendar = Calendar.getInstance();
         eventName = alertLayout.findViewById(R.id.event_name);
         eventTime = alertLayout.findViewById(R.id.event_time);
-        eventDate =  alertLayout.findViewById(R.id.event_date);
+        eventDate = alertLayout.findViewById(R.id.event_date);
 
         addButton = findViewById(R.id.button_addEvent);
 
@@ -74,7 +84,6 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
 
                 //on click lister for recylerView
                 Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
-                //showNotification("FATIH","DENEME");
 
             }
         });
@@ -95,12 +104,14 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
 
         eventDate.setText(sdf.format(myCalendar.getTime()));
     }
+
     private void showEventDialog() {
 
 
         final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
         alertDialog.setCancelable(false);
         alertDialog.setView(alertLayout);
+
 
         eventTime.setOnClickListener(new View.OnClickListener() {
 
@@ -166,7 +177,24 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                 String date = eventDate.getText().toString();
 
                 if (eventName.getText().length() > 0 && eventTime.getText().length() > 0 && eventDate.getText().length() > 0) {
-                    Event event = new Event(name,time,date);
+                    Event event = new Event(name, time, date);
+
+                    //set notification here 2 hours before the event
+                    String hour = String.valueOf(time.charAt(0))+String.valueOf(time.charAt(1));
+                    String min = String.valueOf(time.charAt(3))+String.valueOf(time.charAt(4));
+
+                    int alarmValue = Integer.parseInt(hour);
+                    if (alarmValue<2){
+                        alarmValue=10+alarmValue;
+                    } else {
+                        alarmValue=alarmValue-2;
+                    }
+                    String hourToSet=String.valueOf(alarmValue);
+
+                    setEventNotification(myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH),
+                            Integer.parseInt(hourToSet),Integer.parseInt(min));
+
+
                     sqliteHelper.addEvent(event);
                     Toast.makeText(getApplicationContext(), "Your Event is added!", Toast.LENGTH_LONG).show();
                     dialogInterface.dismiss();
@@ -199,10 +227,32 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
         } else if (id == R.id.nav_event) {
             Intent intent1 = new Intent(EventActivity.this, EventActivity.class);
             EventActivity.this.startActivity(intent1);
-        } else if (id == R.id.nav_contact){
+        } else if (id == R.id.nav_contact) {
             Intent intent1 = new Intent(EventActivity.this, ContactActivity.class);
             EventActivity.this.startActivity(intent1);
         }
         return false;
     }
+
+    //Add calender event
+
+    public void setEventNotification(int year, int month, int day, int hour, int min){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR,year);
+        calendar.set(Calendar.MONTH,month);
+        calendar.set(Calendar.DAY_OF_MONTH,day);
+        calendar.set(Calendar.HOUR_OF_DAY,hour);
+        calendar.set(Calendar.MINUTE,min);
+        calendar.set(Calendar.SECOND,0);
+
+        Intent intent = new Intent(getApplicationContext(),NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+
+    }
+
+
 }

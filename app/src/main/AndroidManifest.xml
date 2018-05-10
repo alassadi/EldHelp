@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.company.eldhelp">
 
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <application
@@ -43,7 +44,10 @@
             android:name=".ContactActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-
+        <receiver
+            android:name=".NotificationReceiver"
+            android:enabled="true"
+            android:exported="true"/>
 
     </application>
 

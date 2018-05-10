@@ -65,7 +65,7 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
 
         //create alarm
 
-
+        /*
         for (int i=0; i<medicines.size(); i++){
             String title=medicines.get(i).getName();
             String time=String.valueOf(medicines.get(i).getTime());
@@ -81,7 +81,7 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
 
             createAlarm(title,Integer.parseInt(our),Integer.parseInt(min),true,true);
 
-        }
+        }*/
 
         adapter = new MedicineViewAdapter(this, medicines, new MedicineOnClickListener() {
             @Override
@@ -89,7 +89,6 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
 
                 //on click lister for recylerView
                 Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
-                //showNotification("FATIH","DENEME");
 
             }
         });
@@ -150,6 +149,14 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
                 if (medicineName.getText().length() > 0 && medicineTime.getText().length() > 0) {
                     Medicine medicine = new Medicine(name, time);
                     sqliteHelper.addMedicine(medicine);
+
+                    //set the alarm here
+
+                    String hour= String.valueOf(time.charAt(0))+String.valueOf(time.charAt(1));
+                    String min=String.valueOf(time.charAt(3))+String.valueOf(time.charAt(4));
+
+                    createAlarm(name,Integer.parseInt(hour),Integer.parseInt(min),true,true);
+
                     Toast.makeText(getApplicationContext(), "Your Medicine is added!", Toast.LENGTH_LONG).show();
                     dialogInterface.dismiss();
                 } else {
@@ -171,13 +178,14 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
     //create alarm
     public void createAlarm(String message, int hour, int minutes, boolean vibrate, boolean skipui){
 
+
         Intent intent=new Intent(AlarmClock.ACTION_SET_ALARM);
         intent.putExtra(AlarmClock.EXTRA_MESSAGE, message);
         intent.putExtra(AlarmClock.EXTRA_HOUR,hour);
         intent.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
-        //intent.putExtra(AlarmClock.EXTRA_DAYS,days);
         intent.putExtra(AlarmClock.EXTRA_VIBRATE,vibrate);
         intent.putExtra(AlarmClock.EXTRA_SKIP_UI, skipui);
+        //intent.putExtra(AlarmClock.EXTRA_DAYS,days);
 
         startActivity(intent);
     }
