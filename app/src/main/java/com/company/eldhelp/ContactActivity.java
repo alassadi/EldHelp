@@ -80,6 +80,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
                 Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
                 //showNotification("FATIH","DENEME");
 
+
             }
         });
         recyclerView.setAdapter(adapter);
