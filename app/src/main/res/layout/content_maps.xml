@@ -38,11 +38,6 @@
             android:text="Find path"
             android:id="@+id/btnFindPath" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Calculator"
-            android:id="@+id/changeView"/>
 
         <TextView
             android:layout_marginLeft="5dp"

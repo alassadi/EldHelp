@@ -7,11 +7,13 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -219,5 +221,31 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Di
 
             polylinePaths.add(mMap.addPolyline(polylineOptions));
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.nav_main) {
+            Intent intent1 = new Intent(MapsActivity.this, MainActivity.class);
+            MapsActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_reminder) {
+            Intent intent1 = new Intent(MapsActivity.this, MedicineActivity.class);
+            MapsActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_event) {
+            Intent intent1 = new Intent(MapsActivity.this, EventActivity.class);
+            MapsActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_contact){
+            Intent intent1 = new Intent(MapsActivity.this, ContactActivity.class);
+            MapsActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_map){
+            Intent intent1 = new Intent(MapsActivity.this, MapsActivity.class);
+            MapsActivity.this.startActivity(intent1);
+        }
+
+
+        return false;
     }
 }
