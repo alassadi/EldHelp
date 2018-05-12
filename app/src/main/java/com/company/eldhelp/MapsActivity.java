@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Location;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -26,12 +29,13 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapsActivity extends BaseActivity implements OnMapReadyCallback, DirectionFinderListener,  NavigationView.OnNavigationItemSelectedListener {
+public class MapsActivity extends BaseActivity implements OnMapReadyCallback, DirectionFinderListener, NavigationView.OnNavigationItemSelectedListener {
 
     private GoogleMap mMap;
     private Button btnFindPath;
@@ -43,7 +47,14 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Di
     private ProgressDialog progressDialog;
     private AppCompatDelegate delegate;
 
+    private Location mLocation;
+    double latitude;
+    double longitude;
+
     private Button changeView;
+
+    private FusedLocationProviderClient mFusedLocationClient;
+
 
     @Override
     public int getLayoutResource() {
@@ -69,6 +80,29 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Di
                 sendRequest();
             }
         });
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                             latitude = location.getLatitude();
+                             longitude = location.getLongitude();                        }
+                    }
+                });
 
     }
 
@@ -102,8 +136,10 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Di
 
         //STARTKOORDINATEN => AKTUELLER STANDORT
 
+        LatLng yourLocation = new LatLng(latitude, longitude);
+
         LatLng hkr = new LatLng(56.048501, 14.146265);
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(hkr, 18));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(yourLocation, 18));
         originMarkers.add(mMap.addMarker(new MarkerOptions()
                 .title("Your Location")
                 .position(hkr)));
@@ -155,7 +191,7 @@ public class MapsActivity extends BaseActivity implements OnMapReadyCallback, Di
         destinationMarkers = new ArrayList<>();
 
         for (Route route : routes) {
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 16));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(route.startLocation, 35));
             ((TextView) findViewById(R.id.tvDuration)).setText(route.duration.text);
             ((TextView) findViewById(R.id.tvDistance)).setText(route.distance.text);
             mRoute = route.distance.text;
