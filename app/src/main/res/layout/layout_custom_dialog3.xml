@@ -28,7 +28,7 @@
             android:imeOptions="actionDone"
             android:singleLine="true"
             android:textSize="20sp"
-            android:maxLength="14"/>
+            android:maxLength="11"/>
     </LinearLayout>
 
     <LinearLayout
