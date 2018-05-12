@@ -128,6 +128,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         } else if (id == R.id.nav_contact){
             Intent intent1 = new Intent(MainActivity.this, ContactActivity.class);
             MainActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_map){
+            Intent intent1 = new Intent(MainActivity.this, MapsActivity.class);
+            MainActivity.this.startActivity(intent1);
         }
 
 
