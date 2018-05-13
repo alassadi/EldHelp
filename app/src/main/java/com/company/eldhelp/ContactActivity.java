@@ -17,6 +17,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,7 +64,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
         //Database connection
         addButton = findViewById(R.id.button_addContact);
         sqliteHelper = new Database(this);
-        ArrayList<Contact> contacts = sqliteHelper.getAllContacts();
+        final ArrayList<Contact> contacts = sqliteHelper.getAllContacts();
 
         //recyclerView
         recyclerView = findViewById(R.id.contact_recycler_view);
@@ -78,7 +79,6 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
 
                 //on click lister for recylerView
                 Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
-                //showNotification("FATIH","DENEME");
 
             }
         });
