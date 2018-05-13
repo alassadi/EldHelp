@@ -3,6 +3,7 @@ package com.company.eldhelp;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private ImageView mSmileyBad;
     private ImageView mCall1;
     private ImageView mCall2;
+    TextToSpeech t1;
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
