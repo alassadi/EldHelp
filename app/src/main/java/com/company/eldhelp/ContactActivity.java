@@ -156,6 +156,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
             Intent intent1 = new Intent(ContactActivity.this, MapsActivity.class);
             ContactActivity.this.startActivity(intent1);
         }
+
         return false;
     }
 
