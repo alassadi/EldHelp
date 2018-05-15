@@ -230,6 +230,9 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
         } else if (id == R.id.nav_contact) {
             Intent intent1 = new Intent(EventActivity.this, ContactActivity.class);
             EventActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_map) {
+            Intent intent1 = new Intent(EventActivity.this, MapsActivity.class);
+            EventActivity.this.startActivity(intent1);
         }
         return false;
     }

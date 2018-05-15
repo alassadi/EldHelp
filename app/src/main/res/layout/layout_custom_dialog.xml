@@ -16,15 +16,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight=".3"
+            android:textSize="20sp"
             android:text="Medicine Name:" />
 
         <EditText
             android:id="@+id/et_username"
             android:layout_width="0dp"
+            android:textSize="20sp"
             android:layout_height="wrap_content"
             android:layout_weight=".7"
             android:imeOptions="actionDone"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:maxLength="16"/>
     </LinearLayout>
 
     <LinearLayout
@@ -36,6 +39,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textSize="20sp"
             android:layout_weight=".3"
             android:text="Time" />
 
@@ -47,6 +51,7 @@
             android:editable="false"
             android:focusable="false"
             android:imeOptions="actionDone"
+            android:textSize="20sp"
             android:singleLine="true" />
     </LinearLayout>
 

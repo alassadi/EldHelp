@@ -9,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.AlarmClock;
 import android.support.annotation.NonNull;
@@ -80,6 +81,13 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
                 //on click lister for recylerView
                 Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
 
+
+                String number = contacts.get(position).getNumber();                            // random number
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
+                startActivity(i);
+
+
             }
         });
         recyclerView.setAdapter(adapter);
@@ -144,8 +152,10 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
         } else if (id == R.id.nav_contact) {
             Intent intent1 = new Intent(ContactActivity.this, ContactActivity.class);
             ContactActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_map) {
+            Intent intent1 = new Intent(ContactActivity.this, MapsActivity.class);
+            ContactActivity.this.startActivity(intent1);
         }
-
         return false;
     }
 
