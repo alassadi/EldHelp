@@ -11,6 +11,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.provider.CalendarContract;
+import android.speech.tts.TextToSpeech;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -35,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.UUID;
 
 public class EventActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -51,8 +53,19 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
     EditText eventDate;
     Calendar myCalendar;
 
+    TextToSpeech textToSpeech;
+
     public int getLayoutResource() {
         return R.layout.activity_event;
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (textToSpeech!=null){
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+        }
+        super.onDestroy();
     }
 
     @Override
@@ -68,9 +81,24 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
 
         addButton = findViewById(R.id.button_addEvent);
 
+
+        //Text to speech
+        textToSpeech=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int status) {
+                if (status!=TextToSpeech.ERROR){
+                    textToSpeech.setLanguage(Locale.UK);
+                    textToSpeech.setSpeechRate(0.5f);
+                }
+
+            }
+        });
+
+
+
         //Database connection
         sqliteHelper = new Database(this);
-        ArrayList<Event> events = sqliteHelper.getAllEvents();
+        final ArrayList<Event> events = sqliteHelper.getAllEvents();
 
         //recyclerView
         recyclerView = findViewById(R.id.event_recycler_view);
@@ -83,10 +111,14 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
             public void onClick(View v, int position) {
 
                 //on click lister for recylerView
-                Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
+                //text to speech onclick
+                String toSpeak=events.get(position).getName()+" "+"on"+" "+events.get(position).getTime()+"        at"+events.get(position).getDate();
+                Toast.makeText(getApplicationContext(), events.get(position).getName(), Toast.LENGTH_LONG).show();
+                textToSpeech.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null,null);
 
             }
         });
+
         recyclerView.setAdapter(adapter);
 
         addButton.setOnClickListener(new View.OnClickListener() {

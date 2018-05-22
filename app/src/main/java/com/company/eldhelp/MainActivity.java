@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private ImageView mSmileyOkay;
     private ImageView mSmileyBad;
     private ImageView mCall1;
-    private ImageView mCall2;
     TextToSpeech t1;
 
 
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         mSmileyOkay = findViewById(R.id.smiley2);
         mSmileyBad = findViewById(R.id.smiley3);
         mCall1 = findViewById(R.id.call1);
-        mCall2 = findViewById(R.id.call2);
 
         mSmileyGood.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,16 +94,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             @Override
             public void onClick(View v) {
                 String number = "1-402-935-2050";                            // random number
-                Intent i = new Intent(Intent.ACTION_DIAL);
-                i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
-                startActivity(i);
-            }
-        });
-
-        mCall2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String number = "2-532-949-3072";                            // random number
                 Intent i = new Intent(Intent.ACTION_DIAL);
                 i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
                 startActivity(i);
