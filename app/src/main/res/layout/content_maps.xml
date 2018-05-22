@@ -19,13 +19,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/etOrigin"
-        android:hint="Enter origin address" />
+        android:hint="Enter origin address"
+        android:textSize="18sp"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter destination address"
-        android:id="@+id/etDestination" />
+        android:id="@+id/etDestination"
+        android:textSize="18sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,19 +38,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Find path"
+            android:textSize="18sp"
             android:id="@+id/btnFindPath" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Calculator"
-            android:id="@+id/changeView"/>
 
         <TextView
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 km"
+            android:textSize="18sp"
             android:id="@+id/tvDistance" />
 
 
@@ -57,6 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 min"
+            android:textSize="18sp"
             android:id="@+id/tvDuration" />
     </LinearLayout>
 

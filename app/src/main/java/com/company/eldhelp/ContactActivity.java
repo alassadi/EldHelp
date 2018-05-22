@@ -86,6 +86,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
                 i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
                 startActivity(i);
 
+
             }
         });
         recyclerView.setAdapter(adapter);
@@ -150,8 +151,10 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
         } else if (id == R.id.nav_contact) {
             Intent intent1 = new Intent(ContactActivity.this, ContactActivity.class);
             ContactActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_map) {
+            Intent intent1 = new Intent(ContactActivity.this, MapsActivity.class);
+            ContactActivity.this.startActivity(intent1);
         }
-
         return false;
     }
 
