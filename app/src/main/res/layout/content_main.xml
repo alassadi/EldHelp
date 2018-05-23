@@ -23,10 +23,11 @@
 
     <ImageView
         android:id="@+id/seaimage"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text1"
-        app:srcCompat="@drawable/sea" />
+        app:srcCompat="@drawable/hand" />
 
     <TextView
         android:id="@+id/text2"

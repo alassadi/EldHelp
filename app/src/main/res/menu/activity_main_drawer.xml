@@ -7,8 +7,7 @@
         <item
             android:id="@+id/nav_main"
             android:icon="@drawable/ic_menu_black_24dp"
-            android:title="@string/main"
-            />
+            android:title="@string/main" />
         <item
             android:id="@+id/nav_reminder"
             android:icon="@drawable/ic_local_pharmacy_black_24dp"
@@ -20,11 +19,12 @@
         <item
             android:id="@+id/nav_contact"
             android:icon="@drawable/navcontacts"
-            android:title="@string/contact"/>
+            android:title="@string/contact" />
         <item
             android:id="@+id/nav_map"
+            android:layout_width="wrap_content"
             android:icon="@drawable/maps"
-            android:title="@string/maps"/>
+            android:title="@string/maps" />
 
 
     </group>
