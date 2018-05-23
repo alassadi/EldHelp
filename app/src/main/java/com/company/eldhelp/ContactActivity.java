@@ -18,6 +18,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -78,7 +79,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
             public void onClick(View v, int position) {
 
                 //on click lister for recylerView
-                //showNotification("FATIH","DENEME");
+                Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
 
 
                 String number = contacts.get(position).getNumber();                            // random number
@@ -102,7 +103,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
 
     private void showContacts() {
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContactActivity.this);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContactActivity.this,R.style.DialogTheme);
         alertDialog.setCancelable(false);
         alertDialog.setView(alertLayout);
 
@@ -117,6 +118,11 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
                     sqliteHelper.addContact(contact);
                     Toast.makeText(getApplicationContext(), "Your Contact is added!", Toast.LENGTH_LONG).show();
                     dialogInterface.dismiss();
+
+                    //Refresh the page
+                    Intent intent=new Intent(ContactActivity.this,ContactActivity.class);
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Your Contact is Not added!", Toast.LENGTH_LONG).show();
                 }
@@ -155,6 +161,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
             Intent intent1 = new Intent(ContactActivity.this, MapsActivity.class);
             ContactActivity.this.startActivity(intent1);
         }
+
         return false;
     }
 

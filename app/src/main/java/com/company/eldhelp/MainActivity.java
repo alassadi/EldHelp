@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private ImageView mSmileyOkay;
     private ImageView mSmileyBad;
     private ImageView mCall1;
+    TextToSpeech t1;
 
 
     @Override
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         mSmileyBad = findViewById(R.id.smiley3);
         mCall1 = findViewById(R.id.call1);
 
-
         mSmileyGood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 MainActivity.this.startActivity(intent1);
             }
         });
-
 
     }
 
