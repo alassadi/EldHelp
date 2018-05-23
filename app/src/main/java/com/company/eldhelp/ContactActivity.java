@@ -103,7 +103,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
 
     private void showContacts() {
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContactActivity.this);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContactActivity.this,R.style.DialogTheme);
         alertDialog.setCancelable(false);
         alertDialog.setView(alertLayout);
 
@@ -118,6 +118,11 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
                     sqliteHelper.addContact(contact);
                     Toast.makeText(getApplicationContext(), "Your Contact is added!", Toast.LENGTH_LONG).show();
                     dialogInterface.dismiss();
+
+                    //Refresh the page
+                    Intent intent=new Intent(ContactActivity.this,ContactActivity.class);
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Your Contact is Not added!", Toast.LENGTH_LONG).show();
                 }

@@ -112,8 +112,7 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
 
                 //on click lister for recylerView
                 //text to speech onclick
-                String toSpeak=events.get(position).getName()+" "+"on"+" "+events.get(position).getTime()+"        at"+events.get(position).getDate();
-                Toast.makeText(getApplicationContext(), events.get(position).getName(), Toast.LENGTH_LONG).show();
+                String toSpeak=events.get(position).getName()+" "+"         on"+" "+events.get(position).getTime()+"        at"+events.get(position).getDate();
                 textToSpeech.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null,null);
 
             }
@@ -140,9 +139,10 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
     private void showEventDialog() {
 
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this,R.style.DialogTheme);
         alertDialog.setCancelable(false);
         alertDialog.setView(alertLayout);
+
 
 
         eventTime.setOnClickListener(new View.OnClickListener() {
@@ -154,7 +154,7 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                 int minute = mcurrentTime.get(Calendar.MINUTE);
 
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(EventActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(EventActivity.this,R.style.TimeTheme, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         if (selectedHour < 10 && selectedMinute < 10) {
@@ -175,6 +175,7 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
         eventDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
 
                 final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -230,11 +231,16 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                     sqliteHelper.addEvent(event);
                     Toast.makeText(getApplicationContext(), "Your Event is added!", Toast.LENGTH_LONG).show();
                     dialogInterface.dismiss();
+
+                    //Refresh the page
+                    Intent intent=new Intent(EventActivity.this,EventActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Your Event is Not added!", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
         alertDialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {

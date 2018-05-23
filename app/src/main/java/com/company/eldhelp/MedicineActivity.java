@@ -109,7 +109,7 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
         final EditText medicineName = alertLayout.findViewById(R.id.et_username);
         final EditText medicineTime = alertLayout.findViewById(R.id.et_email);
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MedicineActivity.this);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MedicineActivity.this,R.style.DialogTheme);
         alertDialog.setCancelable(false);
         alertDialog.setView(alertLayout);
 
@@ -122,7 +122,7 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
                 int minute = mcurrentTime.get(Calendar.MINUTE);
 
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(MedicineActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(MedicineActivity.this,R.style.TimeTheme, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         if (selectedHour < 10 && selectedMinute < 10) {
@@ -159,6 +159,10 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
 
                     Toast.makeText(getApplicationContext(), "Your Medicine is added!", Toast.LENGTH_LONG).show();
                     dialogInterface.dismiss();
+
+                    //Refresh the page
+                    Intent intent=new Intent(MedicineActivity.this,MedicineActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Your Medicine is Not added!", Toast.LENGTH_LONG).show();
                 }
