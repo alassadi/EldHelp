@@ -30,7 +30,11 @@
         <activity
             android:name=".EventActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
+
+        <receiver android:name=".AlarmReceiver" android:process=":remote"></receiver>
+
+        <activity android:name=".AlarmActivity"></activity>
     </application>
 
 </manifest>

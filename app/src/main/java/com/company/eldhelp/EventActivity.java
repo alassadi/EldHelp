@@ -1,7 +1,10 @@
 package com.company.eldhelp;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -26,6 +29,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class EventActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -41,6 +45,10 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
     EditText eventTime ;
     EditText eventDate ;
     Calendar myCalendar ;
+
+    final static int RQS_1 = 1;
+    Calendar cal;
+     int year1,month1,day1,h,m;
 
     public int getLayoutResource() {
         return R.layout.activity_event;
@@ -112,10 +120,14 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
 
+
+
                 TimePickerDialog mTimePicker;
                 mTimePicker = new TimePickerDialog(EventActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        h=selectedHour;
+                        m=selectedMinute;
                         if (selectedHour < 10 && selectedMinute < 10) {
                             eventTime.setText("0" + selectedHour + ":" + "0" + selectedMinute);
                         } else if (selectedHour < 10) {
@@ -144,6 +156,9 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                         myCalendar.set(Calendar.YEAR, year);
                         myCalendar.set(Calendar.MONTH, monthOfYear);
                         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        year1 = year;
+                        month1 = monthOfYear;
+                        day1= dayOfMonth;
                         updateLabel();
                     }
                 };
@@ -156,6 +171,7 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                         new DatePickerDialog(EventActivity.this, date, myCalendar
                                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
                     }
                 });
             }
@@ -170,8 +186,28 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                 if (eventName.getText().length() > 0 && eventTime.getText().length() > 0 && eventDate.getText().length() > 0) {
                     Event event = new Event(name,time,date);
                     sqliteHelper.addEvent(event);
-                    Toast.makeText(getApplicationContext(), "Your Event is added!", Toast.LENGTH_LONG).show();
+                    /*
+                    cal.set(Calendar.YEAR, year);
+                    cal.set(Calendar.MONTH, month);
+                    cal.set(Calendar.DAY_OF_MONTH, day);
+                    cal.set(Calendar.HOUR_OF_DAY, h);
+                    cal.set(Calendar.MINUTE, m);
+                    */
+
+
+
+                    //Toast.makeText(getApplicationContext(), "Your Event is added!", Toast.LENGTH_LONG).show();
+
                     dialogInterface.dismiss();
+                    Intent intent = new Intent(EventActivity.this,AlarmActivity.class);
+                    intent.putExtra("year", String.valueOf(year1));
+                    intent.putExtra("month",String.valueOf(month1));
+                    intent.putExtra("day",String.valueOf(day1));
+                    intent.putExtra("hour",String.valueOf(h));
+                    intent.putExtra("minute",String.valueOf(m));
+                    intent.setAction("com.company.eldhelp");
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Your Event is Not added!", Toast.LENGTH_LONG).show();
                 }
@@ -204,4 +240,14 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
         }
         return false;
     }
+
+    private void setAlarm(Calendar targetCal){
+
+        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(EventActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(EventActivity.this, 0, intent, 0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
+
+    }
+
 }
