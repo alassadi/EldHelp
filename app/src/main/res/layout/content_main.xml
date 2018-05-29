@@ -23,10 +23,11 @@
 
     <ImageView
         android:id="@+id/seaimage"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text1"
-        app:srcCompat="@drawable/sea" />
+        app:srcCompat="@drawable/hand" />
 
     <TextView
         android:id="@+id/text2"
@@ -100,7 +101,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/leer"
+        android:layout_marginTop="10dp"
+        android:id="@+id/leer2"
         app:layout_constraintTop_toBottomOf="@id/text3"/>
 
     <ImageView
@@ -108,16 +110,16 @@
         android:layout_width="75dp"
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="70dp"
+        android:layout_marginStart="160dp"
         android:src="@drawable/phonecall"
         app:layout_constraintTop_toBottomOf="@+id/text3"
-        app:layout_constraintStart_toEndOf="@id/leer"/>
+        app:layout_constraintStart_toEndOf="@id/leer2"/>
 
     <TextView
         android:id="@+id/contact1"
-        android:layout_width="75dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:text="Anne"
+        android:text="Call"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="#000000"
@@ -126,26 +128,5 @@
         app:layout_constraintStart_toStartOf="@id/call1"/>
 
 
-    <ImageView
-        android:layout_width="75dp"
-        android:layout_height="70dp"
-        android:src="@drawable/phonecall"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="100dp"
-        android:id="@+id/call2"
-        app:layout_constraintTop_toBottomOf="@id/text3"
-        app:layout_constraintStart_toEndOf="@id/call1"/>
-
-    <TextView
-        android:id="@+id/contact2"
-        android:layout_width="75dp"
-        android:layout_height="wrap_content"
-        android:text="Paul"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#000000"
-        android:textSize="30sp"
-        app:layout_constraintTop_toBottomOf="@+id/call2"
-        app:layout_constraintStart_toStartOf="@id/call2"/>
 
 </android.support.constraint.ConstraintLayout>

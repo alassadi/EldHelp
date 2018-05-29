@@ -10,7 +10,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/app_bar_contact"
+        layout="@layout/app_bar_maps"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -19,7 +19,6 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="@color/cardview_light_background"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_main"
         app:menu="@menu/activity_main_drawer" />

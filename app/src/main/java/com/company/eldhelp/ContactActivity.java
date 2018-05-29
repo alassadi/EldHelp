@@ -9,6 +9,7 @@ import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.AlarmClock;
 import android.support.annotation.NonNull;
@@ -17,6 +18,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -63,7 +65,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
         //Database connection
         addButton = findViewById(R.id.button_addContact);
         sqliteHelper = new Database(this);
-        ArrayList<Contact> contacts = sqliteHelper.getAllContacts();
+        final ArrayList<Contact> contacts = sqliteHelper.getAllContacts();
 
         //recyclerView
         recyclerView = findViewById(R.id.contact_recycler_view);
@@ -78,7 +80,13 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
 
                 //on click lister for recylerView
                 Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
-                //showNotification("FATIH","DENEME");
+
+
+                String number = contacts.get(position).getNumber();                            // random number
+                Intent i = new Intent(Intent.ACTION_DIAL);
+                i.setData(Uri.parse("tel:" + number));                       //connect intent with phone number
+                startActivity(i);
+
 
             }
         });
@@ -95,7 +103,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
 
     private void showContacts() {
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContactActivity.this);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(ContactActivity.this,R.style.DialogTheme);
         alertDialog.setCancelable(false);
         alertDialog.setView(alertLayout);
 
@@ -110,6 +118,11 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
                     sqliteHelper.addContact(contact);
                     Toast.makeText(getApplicationContext(), "Your Contact is added!", Toast.LENGTH_LONG).show();
                     dialogInterface.dismiss();
+
+                    //Refresh the page
+                    Intent intent=new Intent(ContactActivity.this,ContactActivity.class);
+                    startActivity(intent);
+
                 } else {
                     Toast.makeText(getApplicationContext(), "Your Contact is Not added!", Toast.LENGTH_LONG).show();
                 }
@@ -143,6 +156,9 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
             ContactActivity.this.startActivity(intent1);
         } else if (id == R.id.nav_contact) {
             Intent intent1 = new Intent(ContactActivity.this, ContactActivity.class);
+            ContactActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_map) {
+            Intent intent1 = new Intent(ContactActivity.this, MapsActivity.class);
             ContactActivity.this.startActivity(intent1);
         }
 
