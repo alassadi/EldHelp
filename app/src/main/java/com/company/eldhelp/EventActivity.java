@@ -5,6 +5,9 @@ import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+
+import android.content.Context;
+
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -36,7 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.UUID;
+
 
 public class EventActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -55,13 +58,17 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
 
     TextToSpeech textToSpeech;
 
+    final static int RQS_1 = 1;
+    Calendar cal;
+    int year1, month1, day1, h, m;
+
     public int getLayoutResource() {
         return R.layout.activity_event;
     }
 
     @Override
     protected void onDestroy() {
-        if (textToSpeech!=null){
+        if (textToSpeech != null) {
             textToSpeech.stop();
             textToSpeech.shutdown();
         }
@@ -83,17 +90,16 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
 
 
         //Text to speech
-        textToSpeech=new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
+        textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int status) {
-                if (status!=TextToSpeech.ERROR){
+                if (status != TextToSpeech.ERROR) {
                     textToSpeech.setLanguage(Locale.UK);
                     textToSpeech.setSpeechRate(0.5f);
                 }
 
             }
         });
-
 
 
         //Database connection
@@ -112,8 +118,8 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
 
                 //on click lister for recylerView
                 //text to speech onclick
-                String toSpeak=events.get(position).getName()+" "+"         on"+" "+events.get(position).getTime()+"        at"+events.get(position).getDate();
-                textToSpeech.speak(toSpeak,TextToSpeech.QUEUE_FLUSH,null,null);
+                String toSpeak = events.get(position).getName() + " " + "         on" + " " + events.get(position).getTime() + "        at" + events.get(position).getDate();
+                textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null, null);
 
             }
         });
@@ -139,10 +145,9 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
     private void showEventDialog() {
 
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this,R.style.DialogTheme);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(EventActivity.this, R.style.DialogTheme);
         alertDialog.setCancelable(false);
         alertDialog.setView(alertLayout);
-
 
 
         eventTime.setOnClickListener(new View.OnClickListener() {
@@ -153,10 +158,13 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                 int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
                 int minute = mcurrentTime.get(Calendar.MINUTE);
 
+
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(EventActivity.this,R.style.TimeTheme, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(EventActivity.this, R.style.TimeTheme, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        h = selectedHour;
+                        m = selectedMinute;
                         if (selectedHour < 10 && selectedMinute < 10) {
                             eventTime.setText("0" + selectedHour + ":" + "0" + selectedMinute);
                         } else if (selectedHour < 10) {
@@ -186,6 +194,9 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                         myCalendar.set(Calendar.YEAR, year);
                         myCalendar.set(Calendar.MONTH, monthOfYear);
                         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                        year1 = year;
+                        month1 = monthOfYear;
+                        day1 = dayOfMonth;
                         updateLabel();
                     }
                 };
@@ -198,6 +209,7 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                         new DatePickerDialog(EventActivity.this, date, myCalendar
                                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+
                     }
                 });
             }
@@ -213,28 +225,45 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
                     Event event = new Event(name, time, date);
 
                     //set notification here 2 hours before the event
-                    String hour = String.valueOf(time.charAt(0))+String.valueOf(time.charAt(1));
-                    String min = String.valueOf(time.charAt(3))+String.valueOf(time.charAt(4));
+                    String hour = String.valueOf(time.charAt(0)) + String.valueOf(time.charAt(1));
+                    String min = String.valueOf(time.charAt(3)) + String.valueOf(time.charAt(4));
 
                     int alarmValue = Integer.parseInt(hour);
-                    if (alarmValue<2){
-                        alarmValue=10+alarmValue;
+                    if (alarmValue < 2) {
+                        alarmValue = 10 + alarmValue;
                     } else {
-                        alarmValue=alarmValue-2;
+                        alarmValue = alarmValue - 2;
                     }
-                    String hourToSet=String.valueOf(alarmValue);
+                    String hourToSet = String.valueOf(alarmValue);
 
-                    setEventNotification(myCalendar.get(Calendar.YEAR),myCalendar.get(Calendar.MONTH),myCalendar.get(Calendar.DAY_OF_MONTH),
-                            Integer.parseInt(hourToSet),Integer.parseInt(min));
+                    setEventNotification(myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH),
+                            Integer.parseInt(hourToSet), Integer.parseInt(min));
 
 
                     sqliteHelper.addEvent(event);
-                    Toast.makeText(getApplicationContext(), "Your Event is added!", Toast.LENGTH_LONG).show();
+                    /*
+                    cal.set(Calendar.YEAR, year);
+                    cal.set(Calendar.MONTH, month);
+                    cal.set(Calendar.DAY_OF_MONTH, day);
+                    cal.set(Calendar.HOUR_OF_DAY, h);
+                    cal.set(Calendar.MINUTE, m);
+                    */
+
+                    //Toast.makeText(getApplicationContext(), "Your Event is added!", Toast.LENGTH_LONG).show();
+
                     dialogInterface.dismiss();
+                    Intent intent = new Intent(EventActivity.this, AlarmActivity.class);
+                    intent.putExtra("year", String.valueOf(year1));
+                    intent.putExtra("month", String.valueOf(month1));
+                    intent.putExtra("day", String.valueOf(day1));
+                    intent.putExtra("hour", String.valueOf(h));
+                    intent.putExtra("minute", String.valueOf(m));
+                    intent.setAction("com.company.eldhelp");
+                    startActivity(intent);
 
                     //Refresh the page
-                    Intent intent=new Intent(EventActivity.this,EventActivity.class);
-                    startActivity(intent);
+                    Intent intent1 = new Intent(EventActivity.this, EventActivity.class);
+                    startActivity(intent1);
                 } else {
                     Toast.makeText(getApplicationContext(), "Your Event is Not added!", Toast.LENGTH_LONG).show();
                 }
@@ -275,25 +304,32 @@ public class EventActivity extends BaseActivity implements NavigationView.OnNavi
         return false;
     }
 
-    //Add calender event
+    private void setAlarm(Calendar targetCal) {
 
-    public void setEventNotification(int year, int month, int day, int hour, int min){
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR,year);
-        calendar.set(Calendar.MONTH,month);
-        calendar.set(Calendar.DAY_OF_MONTH,day);
-        calendar.set(Calendar.HOUR_OF_DAY,hour);
-        calendar.set(Calendar.MINUTE,min);
-        calendar.set(Calendar.SECOND,0);
-
-        Intent intent = new Intent(getApplicationContext(),NotificationReceiver.class);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,calendar.getTimeInMillis(),AlarmManager.INTERVAL_DAY,pendingIntent);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(EventActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(EventActivity.this, 0, intent, 0);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
 
     }
 
+    //Add calender event
 
+    public void setEventNotification(int year, int month, int day, int hour, int min) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, year);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, day);
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, min);
+        calendar.set(Calendar.SECOND, 0);
+
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+    }
 }

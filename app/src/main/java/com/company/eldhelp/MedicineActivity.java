@@ -33,6 +33,8 @@ import java.util.Calendar;
 import java.util.List;
 import android.content.DialogInterface;
 
+import static com.company.eldhelp.MyApplication.getAppContext;
+
 public class MedicineActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     public RecyclerView recyclerView;
     public RecyclerView.Adapter adapter;
