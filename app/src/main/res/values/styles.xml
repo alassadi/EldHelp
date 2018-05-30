@@ -28,5 +28,23 @@
         <item name="android:windowBackground">@drawable/backgroundsplash</item>
     </style>
 
+    <style name="DialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:background">@android:color/white</item>
+        <item name="android:textColor">@android:color/black</item>
+    </style>
+
+    <style name="TimeTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:colorAccent">@android:color/black</item>
+
+    </style>
+
+    <style name="DateTheme" parent="Theme.AppCompat.Dialog.Alert">
+
+    </style>
+
+    <style name="NavDrawerTextStyle" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textSize">28sp</item>
+
+    </style>
 
 </resources>

@@ -4,20 +4,28 @@
     <string name="medicineTime" />
     <string name="medicineImage" />
     <string name="title_activity_main2">Main2Activity</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
     <string name="addMedicine">Add Medicine</string>
     <string name="date">Date</string>
     <string name="time">Time</string>
-    <string name="event_name">Event Name:</string>
+    <string name="event_name">Event Name</string>
     <string name="medicine">Medicines</string>
     <string name="main">Main</string>
     <string name="event">Events</string>
+    <string name="contact">Contacts</string>
     <string name="add_event">Add Event</string>
     <string name="eventName" />
     <string name="eventTime" />
+    <string name="maps">Maps</string>
     <string name="eventDate" />
+    <string name="add_contact">Add Contact</string>
+    <string name="contactName" />
+    <string name="contactNumber" />
+    <string name="contact_name">Name</string>
+    <string name="contact_number">Number</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="medName">Medicine Name</string>
+    <string name="med_name" />
 </resources>

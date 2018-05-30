@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="navigation_view">
+    tools:showIn="navigation_view"
+    >
 
     <group android:checkableBehavior="single">
         <item
@@ -16,7 +17,16 @@
             android:id="@+id/nav_event"
             android:icon="@drawable/ic_event_available_black_24dp"
             android:title="@string/event" />
-
+        <item
+            android:id="@+id/nav_contact"
+            android:icon="@drawable/navcontacts"
+            android:title="@string/contact" />
+        <item
+            android:id="@+id/nav_map"
+            android:layout_width="wrap_content"
+            android:icon="@drawable/maps"
+            android:title="@string/maps" />
+        
     </group>
 
 

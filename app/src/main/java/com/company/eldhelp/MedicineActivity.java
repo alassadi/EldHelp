@@ -67,7 +67,7 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
 
         //create alarm
 
-
+        /*
         for (int i=0; i<medicines.size(); i++){
             String title=medicines.get(i).getName();
             String time=String.valueOf(medicines.get(i).getTime());
@@ -83,7 +83,7 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
 
             createAlarm(title,Integer.parseInt(our),Integer.parseInt(min),true,true);
 
-        }
+        }*/
 
         adapter = new MedicineViewAdapter(this, medicines, new MedicineOnClickListener() {
             @Override
@@ -91,7 +91,6 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
 
                 //on click lister for recylerView
                 Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
-                //showNotification("FATIH","DENEME");
 
             }
         });
@@ -112,7 +111,7 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
         final EditText medicineName = alertLayout.findViewById(R.id.et_username);
         final EditText medicineTime = alertLayout.findViewById(R.id.et_email);
 
-        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MedicineActivity.this);
+        final AlertDialog.Builder alertDialog = new AlertDialog.Builder(MedicineActivity.this,R.style.DialogTheme);
         alertDialog.setCancelable(false);
         alertDialog.setView(alertLayout);
 
@@ -125,7 +124,7 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
                 int minute = mcurrentTime.get(Calendar.MINUTE);
 
                 TimePickerDialog mTimePicker;
-                mTimePicker = new TimePickerDialog(MedicineActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                mTimePicker = new TimePickerDialog(MedicineActivity.this,R.style.TimeTheme, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         if (selectedHour < 10 && selectedMinute < 10) {
@@ -152,8 +151,20 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
                 if (medicineName.getText().length() > 0 && medicineTime.getText().length() > 0) {
                     Medicine medicine = new Medicine(name, time);
                     sqliteHelper.addMedicine(medicine);
+
+                    //set the alarm here
+
+                    String hour= String.valueOf(time.charAt(0))+String.valueOf(time.charAt(1));
+                    String min=String.valueOf(time.charAt(3))+String.valueOf(time.charAt(4));
+
+                    createAlarm(name,Integer.parseInt(hour),Integer.parseInt(min),true,true);
+
                     Toast.makeText(getApplicationContext(), "Your Medicine is added!", Toast.LENGTH_LONG).show();
                     dialogInterface.dismiss();
+
+                    //Refresh the page
+                    Intent intent=new Intent(MedicineActivity.this,MedicineActivity.class);
+                    startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Your Medicine is Not added!", Toast.LENGTH_LONG).show();
                 }
@@ -173,13 +184,14 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
     //create alarm
     public void createAlarm(String message, int hour, int minutes, boolean vibrate, boolean skipui){
 
+
         Intent intent=new Intent(AlarmClock.ACTION_SET_ALARM);
         intent.putExtra(AlarmClock.EXTRA_MESSAGE, message);
         intent.putExtra(AlarmClock.EXTRA_HOUR,hour);
         intent.putExtra(AlarmClock.EXTRA_MINUTES, minutes);
-        //intent.putExtra(AlarmClock.EXTRA_DAYS,days);
         intent.putExtra(AlarmClock.EXTRA_VIBRATE,vibrate);
         intent.putExtra(AlarmClock.EXTRA_SKIP_UI, skipui);
+        //intent.putExtra(AlarmClock.EXTRA_DAYS,days);
 
         startActivity(intent);
     }
@@ -226,8 +238,14 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
         } else if (id == R.id.nav_reminder) {
             Intent intent1 = new Intent(MedicineActivity.this, MedicineActivity.class);
             MedicineActivity.this.startActivity(intent1);
-        }  else if (id == R.id.nav_event) {
+        } else if (id == R.id.nav_event) {
             Intent intent1 = new Intent(MedicineActivity.this, EventActivity.class);
+            MedicineActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_map) {
+            Intent intent1 = new Intent(MedicineActivity.this, MapsActivity.class);
+            MedicineActivity.this.startActivity(intent1);
+        } else if (id == R.id.nav_contact) {
+            Intent intent1 = new Intent(MedicineActivity.this, ContactActivity.class);
             MedicineActivity.this.startActivity(intent1);
         }
 
