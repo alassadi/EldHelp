@@ -8,8 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:datePickerDialogTheme">@style/MyDatePickerDialogTheme</item>
     </style>
-
+    <style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">
+        <item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+    </style>
+    <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+        <item name="android:headerBackground">@color/colorPrimaryDark</item>
+    </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
@@ -34,7 +40,7 @@
     </style>
 
     <style name="TimeTheme" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="android:colorAccent">@android:color/black</item>
+        <item name="android:colorAccent">@color/colorPrimaryDark</item>
 
     </style>
 
@@ -42,5 +48,9 @@
 
     </style>
 
+    <style name="NavDrawerTextStyle" parent="Base.TextAppearance.AppCompat">
+        <item name="android:textSize">28sp</item>
+
+    </style>
 
 </resources>

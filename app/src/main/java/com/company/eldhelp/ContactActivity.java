@@ -79,7 +79,7 @@ public class ContactActivity extends BaseActivity implements NavigationView.OnNa
             public void onClick(View v, int position) {
 
                 //on click lister for recylerView
-                Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), "Test Onclick", Toast.LENGTH_LONG).show();
 
 
                 String number = contacts.get(position).getNumber();                            // random number
