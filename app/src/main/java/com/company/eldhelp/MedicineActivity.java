@@ -33,8 +33,6 @@ import java.util.Calendar;
 import java.util.List;
 import android.content.DialogInterface;
 
-import static com.company.eldhelp.MyApplication.getAppContext;
-
 public class MedicineActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
     public RecyclerView recyclerView;
     public RecyclerView.Adapter adapter;
@@ -71,18 +69,13 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
         for (int i=0; i<medicines.size(); i++){
             String title=medicines.get(i).getName();
             String time=String.valueOf(medicines.get(i).getTime());
-
             String hour1= String.valueOf(time.charAt(0));
             String hour2=String.valueOf(time.charAt(1));
-
             String min1=String.valueOf(time.charAt(3));
             String min2=String.valueOf(time.charAt(4));
-
             String our=hour1+hour2;
             String min=min1+min2;
-
             createAlarm(title,Integer.parseInt(our),Integer.parseInt(min),true,true);
-
         }*/
 
         adapter = new MedicineViewAdapter(this, medicines, new MedicineOnClickListener() {
@@ -163,8 +156,8 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
                     dialogInterface.dismiss();
 
                     //Refresh the page
-                    Intent intent=new Intent(MedicineActivity.this,MedicineActivity.class);
-                    startActivity(intent);
+                    //Intent intent=new Intent(MedicineActivity.this,MedicineActivity.class);
+                    //startActivity(intent);
                 } else {
                     Toast.makeText(getApplicationContext(), "Your Medicine is Not added!", Toast.LENGTH_LONG).show();
                 }
@@ -200,13 +193,13 @@ public class MedicineActivity extends BaseActivity implements NavigationView.OnN
     void showNotification(String title, String content) {
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplicationContext(), "default");
-                builder.setSmallIcon(R.mipmap.ic_launcher); // notification icon
-                builder.setContentTitle(title); // title for notification
-                builder.setContentText(content);// message for notification
-                builder.setPriority(Notification.PRIORITY_MAX);
-                builder.setDefaults(Notification.DEFAULT_ALL);//
-                //.setSound(mysound) // set alarm sound for notification
-                //.setAutoCancel(false); // clear notification after click
+        builder.setSmallIcon(R.mipmap.ic_launcher); // notification icon
+        builder.setContentTitle(title); // title for notification
+        builder.setContentText(content);// message for notification
+        builder.setPriority(Notification.PRIORITY_MAX);
+        builder.setDefaults(Notification.DEFAULT_ALL);//
+        //.setSound(mysound) // set alarm sound for notification
+        //.setAutoCancel(false); // clear notification after click
 
         Intent intent = new Intent(getApplicationContext(), MedicineActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
