@@ -40,7 +40,7 @@
     </style>
 
     <style name="TimeTheme" parent="Theme.AppCompat.Dialog.Alert">
-        <item name="android:colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
 
     </style>
 
